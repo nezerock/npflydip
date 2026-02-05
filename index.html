@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>np флуд</title>
+    <style>
+        /* ФОН с вашей ссылкой */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://papik.pro/uploads/posts/2022-01/thumbs/1643625431_6-papik-pro-p-logotip-edisona-7.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Затемнение фона для контраста */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1;
+        }
+
+        /* Стиль для всех контейнеров */
+        .page {
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 25px;
+            background: rgba(10, 10, 10, 0.92);
+            box-shadow: 0 0 80px rgba(255, 0, 0, 0.7), inset 0 0 40px rgba(255, 0, 0, 0.2);
+            border: 3px solid #ff0000;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(12px);
+            display: none;
+            overflow: hidden;
+        }
+
+        .active-page {
+            display: block;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+            letter-spacing: 3px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        h2 {
+            color: #00ffea;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(0, 255, 234, 0.7);
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 20px 35px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Arial Black', Gadget, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Кнопка "Должности" */
+        .stat-btn {
+            background: linear-gradient(145deg, #8b0000, #ff0000, #8b0000);
+            color: #ffffff;
+            border: 2px solid #00ffea;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+        }
+
+        /* Кнопка "Инфа" */
+        .info-btn {
+            background: linear-gradient(145deg, #00008b, #0066ff, #00008b);
+            color: #ffffff;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 25px rgba(0, 102, 255, 0.7);
+        }
+
+        /* Кнопка "Назад" */
+        .back-btn {
+            background: linear-gradient(145deg, #333333, #666666, #333333);
+            color: #ffffff;
+            border: 2px solid #ff0000;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+            50% { text-shadow: 0 0 35px rgba(255, 0, 0, 1); }
+        }
+
+        h1 {
+            animation: glow 3s infinite alternate;
+        }
+
+        /* Контейнер для списка должностей с жестами */
+        .stats-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            touch-action: pan-y;
+        }
+
+        .stats-list-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .stats-list {
+            list-style: none;
+            padding: 15px;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .stats-list li {
+            padding: 15px;
+            margin: 10px 0;
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.15), rgba(0, 255, 234, 0.1));
+            border-left: 4px solid #ff0000;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .stats-list li.active {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(0, 255, 234, 0.2));
+            transform: scale(1.02);
+        }
+
+        .user-name {
+            color: #00ffea;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .message-count {
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Индикатор прокрутки */
+        .scroll-indicator {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            opacity: 0.7;
+        }
+
+        /* Окно информации - компактное */
+        .info-content {
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 2px solid #0066ff;
+            margin: 20px 0;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .info-content p {
+            margin: 15px 0;
+        }
+
+        .creator {
+            color: #ff9900;
+            font-weight: bold;
+        }
+
+        /* Декоративные элементы */
+        .corner {
+            position: fixed;
+            font-size: 2rem;
+            color: #ff0000;
+            opacity: 0.4;
+            z-index: 3;
+        }
+
+        .tl { top: 15px; left: 15px; }
+        .tr { top: 15px; right: 15px; }
+        .bl { bottom: 15px; left: 15px; }
+        .br { bottom: 15px; right: 15px; }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .page {
+                padding: 25px 20px;
+                max-height: 85vh;
+            }
+            
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            
+            .btn { 
+                padding: 18px 25px; 
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+            
+            .stats-container {
+                height: 250px;
+            }
+            
+            .info-content {
+                font-size: 1.1rem;
+                padding: 15px;
+                max-height: 200px;
+            }
+            
+            .stats-list li {
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+            
+            .corner { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            .btn { padding: 15px 20px; font-size: 1.1rem; }
+            .stats-container { height: 220px; }
+            .info-content { font-size: 1rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Декоративные элементы -->
+    <div class="corner tl"><i class="fas fa-bolt"></i></div>
+    <div class="corner tr"><i class="fas fa-gamepad"></i></div>
+    <div class="corner bl"><i class="fas fa-microphone"></i></div>
+    <div class="corner br"><i class="fas fa-fire"></i></div>
+
+    <!-- Главная страница -->
+    <div class="page active-page" id="mainPage">
+        <h1>np флуд</h1>
+        <div class="buttons">
+            <button class="btn stat-btn" onclick="showPage('statsPage')">
+                <i class="fas fa-crown"></i> ДОЛЖНОСТИ
+            </button>
+            <button class="btn info-btn" onclick="showPage('infoPage')">
+                <i class="fas fa-info-circle"></i> ИНФА
+            </button>
+        </div>
+    </div>
+
+    <!-- Страница должностей -->
+    <div class="page" id="statsPage">
+        <h2><i class="fas fa-crown"></i> ДОЛЖНОСТИ</h2>
+        
+        <div class="stats-container" id="statsScroll">
+            <div class="stats-list-wrapper" id="statsListWrapper">
+                <!-- ВАЖНО: ЭТО МЕСТО ГДЕ ВЫ МЕНЯЕТЕ СТАТИСТИКУ -->
+                <!-- ⬇⬇⬇ РЕДАКТИРУЙТЕ СПИСОК НИЖЕ ⬇⬇⬇ -->
+                <ul class="stats-list">
+                    <li><span class="user-name">@plushpeppa</span> <span class="message-count">20 сообщений</span></li>
+                    <li><span class="user-name">@gamerpro</span> <span class="message-count">15 сообщений</span></li>
+                    <li><span class="user-name">@streamer_x</span> <span class="message-count">12 сообщений</span></li>
+                    <li><span class="user-name">@np_fan</span> <span class="message-count">8 сообщений</span></li>
+                    <li><span class="user-name">@chat_master</span> <span class="message-count">5 сообщений</span></li>
+                    <li><span class="user-name">@new_user</span> <span class="message-count">3 сообщений</span></li>
+                    <li><span class="user-name">@vip_member</span> <span class="message-count">25 сообщений</span></li>
+                    <li><span class="user-name">@moderator</span> <span class="message-count">18 сообщений</span></li>
+                    <li><span class="user-name">@helper</span> <span class="message-count">10 сообщений</span></li>
+                    <li><span class="user-name">@active_user</span> <span class="message-count">7 сообщений</span></li>
+                </ul>
+                <!-- ⬆⬆⬆ РЕДАКТИРУЙТЕ СПИСОК ВЫШЕ ⬆⬆⬆ -->
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-arrows-up-down"></i> Листайте пальцем или колесиком мыши
+        </div>
+        
+        <button class="btn back-btn" onclick="showPage('mainPage')">
+            <i class="fas fa-arrow-left"></i> НАЗАД
+        </button>
+    </div>
+
+    <!-- Страница информации -->
+    <div class="page" id="infoPage">
+        <h2><i class="fas fa-info-circle"></i> ИНФОРМАЦИЯ</h2>
+        
+        <div class="info-content">
+            <p><strong>np флуд</strong> - проект созданный <span class="creator">@kosmonavtiklar</span>.</p>
+            
+            <p>Здесь вы можете общаться, стать почти любым членом команды np и просто побыть в дружеском коллективе.</p>
+        </div>
+        
+        <button class="btn back-btn" onclick="showPage('mainPage')">
+            <i class="fas fa-arrow-left"></i> НАЗАД
+        </button>
+    </div>
+
+    <script>
+        // Глобальный AudioContext для стабильной работы звуков
+        let audioContext;
+        
+        // Инициализация аудио
+        function initAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) {
+                console.log("Аудио не поддерживается в этом браузере");
+            }
+        }
+        
+        // Функция для воспроизведения звука при клике
+        function playClickSound() {
+            if (!audioContext) {
+                initAudio();
+            }
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch(e) {
+                // Если аудио не работает, просто игнорируем
+            }
+        }
+        
+        // Переменные для управления жестами
+        let isDragging = false;
+        let startY = 0;
+        let currentY = 0;
+        let scrollOffset = 0;
+        let maxScroll = 0;
+        
+        // Показываем главную страницу при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('mainPage');
+            initAudio();
+            initScroll();
+            
+            // Активируем аудио контекст при первом взаимодействии пользователя
+            document.body.addEventListener('click', function activateAudio() {
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                document.body.removeEventListener('click', activateAudio);
+            });
+        });
+
+        function showPage(pageId) {
+            // Воспроизводим звук клика
+            playClickSound();
+            
+            // Скрываем все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Показываем нужную страницу
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Если открываем страницу статистики, инициализируем скролл
+            if (pageId === 'statsPage') {
+                setTimeout(initScroll, 100);
+            }
+        }
+        
+        // Инициализация скролла для жестов
+        function initScroll() {
+            const container = document.getElementById('statsScroll');
+            const wrapper = document.getElementById('statsListWrapper');
+            const list = wrapper.querySelector('.stats-list');
+            
+            if (!container || !wrapper || !list) return;
+            
+            // Вычисляем максимальный скролл
+            const containerHeight = container.clientHeight;
+            const listHeight = list.clientHeight;
+            maxScroll = Math.max(0, listHeight - containerHeight);
+            scrollOffset = 0;
+            
+            // Сброс позиции
+            wrapper.style.transform = `translateY(0px)`;
+            
+            // События для мыши
+            container.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                scrollOffset -= e.deltaY * 0.5;
+                scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
+                wrapper.style.transform = `translateY(-${scrollOffset}px)`;
+            });
+            
+            // События для тач-устройств
+            container.addEventListener('touchstart', function(e) {
+                isDragging = true;
+                startY = e.touches[0].clientY;
+                currentY = startY;
+                container.style.cursor = 'grabbing';
+            });
+            
+            container.addEventListener('touchmove', function(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                currentY = e.touches[0].clientY;
+                const deltaY = currentY - startY;
+                
+                scrollOffset -= deltaY * 1.5;
+                scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
+                
+                wrapper.style.transform = `translateY(-${scrollOffset}px)`;
+                startY = currentY;
+            });
+            
+            container.addEventListener('touchend', function() {
+                isDragging = false;
+                container.style.cursor = 'default';
+                
+                // Добавляем инерцию
+                const velocity = (currentY - startY) * 0.5;
+                if (Math.abs(velocity) > 5) {
+                    inertialScroll(velocity);
+                }
+            });
+            
+            // События для десктопа (мышь)
+            container.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startY = e.clientY;
+                currentY = startY;
+                container.style.cursor = 'grabbing';
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                currentY = e.clientY;
+                const deltaY = currentY - startY;
+                
+                scrollOffset -= deltaY;
+                scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
+                
+                wrapper.style.transform = `translateY(-${scrollOffset}px)`;
+                startY = currentY;
+            });
+            
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    container.style.cursor = 'default';
+                    
+                    // Добавляем инерцию
+                    const velocity = (currentY - startY) * 0.3;
+                    if (Math.abs(velocity) > 2) {
+                        inertialScroll(velocity);
+                    }
+                }
+            });
+            
+            // Отключаем выделение текста при перетаскивании
+            container.addEventListener('selectstart', function(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                }
+            });
+        }
+        
+        // Функция инерционного скролла
+        function inertialScroll(velocity) {
+            let friction = 0.95;
+            let currentVelocity = velocity;
+            
+            function animate() {
+                if (Math.abs(currentVelocity) > 0.5) {
+                    scrollOffset -= currentVelocity;
+                    scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
+                    
+                    const wrapper = document.getElementById('statsListWrapper');
+                    if (wrapper) {
+                        wrapper.style.transform = `translateY(-${scrollOffset}px)`;
+                    }
+                    
+                    currentVelocity *= friction;
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            animate();
+        }
+        
+        // Эффекты при нажатии кнопок
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                playClickSound();
+            });
+            
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+            
+            // Для тач-устройств
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
