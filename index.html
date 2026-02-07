@@ -41,75 +41,74 @@
         /* Стиль для всех контейнеров */
         .page {
             text-align: center;
-            padding: 40px 30px;
-            border-radius: 25px;
-            background: rgba(10, 10, 10, 0.92);
-            box-shadow: 0 0 80px rgba(255, 0, 0, 0.7), inset 0 0 40px rgba(255, 0, 0, 0.2);
-            border: 3px solid #ff0000;
-            max-width: 600px;
+            padding: 30px 25px;
+            border-radius: 20px;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.7), inset 0 0 30px rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            max-width: 500px;
             width: 90%;
             max-height: 90vh;
             position: relative;
             z-index: 2;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             display: none;
             overflow: hidden;
         }
 
         .active-page {
             display: block;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 0.5s ease-out;
         }
 
         h1 {
             color: #ff0000;
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
-            letter-spacing: 3px;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            letter-spacing: 2px;
             font-weight: 900;
             text-transform: uppercase;
             font-family: 'Impact', 'Arial Black', sans-serif;
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
         h1::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 20%;
-            width: 60%;
-            height: 3px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #ff0000, transparent);
         }
 
         h2 {
             color: #00ffea;
-            font-size: 2.2rem;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(0, 255, 234, 0.7);
-            letter-spacing: 2px;
-            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 234, 0.6);
+            font-weight: 700;
         }
 
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 25px;
         }
 
         .btn {
-            padding: 20px 35px;
-            font-size: 1.5rem;
+            padding: 16px 25px;
+            font-size: 1.3rem;
             font-weight: bold;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             position: relative;
             overflow: hidden;
             font-family: 'Arial Black', Gadget, sans-serif;
@@ -118,60 +117,45 @@
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
 
         /* Кнопка "Должности" */
         .stat-btn {
-            background: linear-gradient(145deg, #8b0000, #ff0000, #8b0000);
+            background: linear-gradient(135deg, #8b0000, #ff0000);
             color: #ffffff;
             border: 2px solid #00ffea;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
         /* Кнопка "Инфа" */
         .info-btn {
-            background: linear-gradient(145deg, #00008b, #0066ff, #00008b);
+            background: linear-gradient(135deg, #00008b, #0066ff);
             color: #ffffff;
             border: 2px solid #ff0000;
-            box-shadow: 0 0 25px rgba(0, 102, 255, 0.7);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
         }
 
         /* Кнопка "Назад" */
         .back-btn {
-            background: linear-gradient(145deg, #333333, #666666, #333333);
+            background: linear-gradient(135deg, #333, #555);
             color: #ffffff;
             border: 2px solid #ff0000;
-            padding: 15px 30px;
-            font-size: 1.3rem;
-            margin-top: 30px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            margin-top: 25px;
         }
 
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(40px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
-            50% { text-shadow: 0 0 35px rgba(255, 0, 0, 1); }
-        }
-
-        h1 {
-            animation: glow 3s infinite alternate;
-        }
-
-        /* Контейнер для списка должностей с жестами */
+        /* Контейнер для списка должностей */
         .stats-container {
             position: relative;
-            height: 300px;
+            height: 280px;
             overflow: hidden;
-            margin: 20px 0;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.3);
+            margin: 15px 0;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.25);
             touch-action: pan-y;
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .stats-list-wrapper {
@@ -179,136 +163,240 @@
             top: 0;
             left: 0;
             width: 100%;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
             will-change: transform;
         }
 
         .stats-list {
             list-style: none;
-            padding: 15px;
+            padding: 12px;
             margin: 0;
-            font-size: 1.2rem;
         }
 
+        /* Компактные элементы списка */
         .stats-list li {
-            padding: 15px;
-            margin: 10px 0;
-            background: linear-gradient(90deg, rgba(255, 0, 0, 0.15), rgba(0, 255, 234, 0.1));
-            border-left: 4px solid #ff0000;
+            padding: 10px 12px;
+            margin: 6px 0;
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid #ff0000;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             user-select: none;
+            min-height: 44px;
         }
 
-        .stats-list li.active {
-            background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(0, 255, 234, 0.2));
-            transform: scale(1.02);
+        .stats-list li:hover {
+            background: rgba(255, 0, 0, 0.15);
         }
 
+        /* Компактное отображение имени пользователя */
         .user-name {
             color: #00ffea;
-            font-weight: bold;
-            font-size: 1.3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            flex: 1;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-right: 10px;
+            text-align: left;
         }
 
+        /* Компактное отображение количества сообщений */
         .message-count {
-            color: #ffffff;
-            background: linear-gradient(45deg, #ff0000, #8b0000);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
+            color: #fff;
+            background: linear-gradient(135deg, #ff0000, #b30000);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            min-width: 80px;
+            text-align: center;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* Индикатор прокрутки */
         .scroll-indicator {
             text-align: center;
             color: #888;
-            font-size: 0.9rem;
-            margin: 10px 0;
+            font-size: 0.8rem;
+            margin: 8px 0;
             opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        /* Окно информации - компактное */
+        .scroll-indicator i {
+            font-size: 0.9rem;
+        }
+
+        /* Окно информации */
         .info-content {
             text-align: center;
-            font-size: 1.3rem;
-            line-height: 1.6;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 2px solid #0066ff;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 102, 255, 0.4);
             margin: 20px 0;
-            max-height: 250px;
-            overflow-y: auto;
         }
 
         .info-content p {
-            margin: 15px 0;
+            margin: 12px 0;
         }
 
         .creator {
             color: #ff9900;
-            font-weight: bold;
+            font-weight: 600;
+            display: inline-block;
+            background: rgba(255, 153, 0, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
         }
 
         /* Декоративные элементы */
         .corner {
             position: fixed;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ff0000;
-            opacity: 0.4;
+            opacity: 0.3;
             z-index: 3;
         }
 
-        .tl { top: 15px; left: 15px; }
-        .tr { top: 15px; right: 15px; }
-        .bl { bottom: 15px; left: 15px; }
-        .br { bottom: 15px; right: 15px; }
+        .tl { top: 10px; left: 10px; }
+        .tr { top: 10px; right: 10px; }
+        .bl { bottom: 10px; left: 10px; }
+        .br { bottom: 10px; right: 10px; }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Адаптивность для мобильных */
         @media (max-width: 768px) {
             .page {
                 padding: 25px 20px;
                 max-height: 85vh;
+                width: 92%;
             }
             
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.8rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
             
             .btn { 
-                padding: 18px 25px; 
-                font-size: 1.3rem;
-                letter-spacing: 1px;
+                padding: 14px 20px; 
+                font-size: 1.1rem;
             }
             
             .stats-container {
-                height: 250px;
-            }
-            
-            .info-content {
-                font-size: 1.1rem;
-                padding: 15px;
-                max-height: 200px;
+                height: 240px;
             }
             
             .stats-list li {
-                padding: 12px;
-                font-size: 1.1rem;
+                padding: 8px 10px;
+                margin: 5px 0;
             }
             
-            .corner { font-size: 1.5rem; }
+            .user-name {
+                font-size: 0.95rem;
+            }
+            
+            .message-count {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+                min-width: 70px;
+            }
+            
+            .info-content {
+                font-size: 1rem;
+                padding: 15px;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            .btn { padding: 15px 20px; font-size: 1.1rem; }
-            .stats-container { height: 220px; }
-            .info-content { font-size: 1rem; }
+            h1 { font-size: 1.7rem; }
+            h2 { font-size: 1.3rem; }
+            
+            .btn { 
+                padding: 12px 18px; 
+                font-size: 1rem;
+            }
+            
+            .stats-container {
+                height: 220px;
+            }
+            
+            .stats-list li {
+                padding: 7px 9px;
+                margin: 4px 0;
+            }
+            
+            .user-name {
+                font-size: 0.9rem;
+            }
+            
+            .message-count {
+                font-size: 0.75rem;
+                min-width: 65px;
+            }
+            
+            .info-content {
+                font-size: 0.95rem;
+                padding: 12px;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .page {
+                padding: 20px 15px;
+            }
+            
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            
+            .btn { 
+                padding: 10px 15px; 
+                font-size: 0.9rem;
+                letter-spacing: 0;
+            }
+            
+            .stats-container {
+                height: 200px;
+            }
+            
+            .stats-list li {
+                padding: 6px 8px;
+            }
+            
+            .user-name {
+                font-size: 0.85rem;
+            }
+            
+            .message-count {
+                font-size: 0.7rem;
+                min-width: 60px;
+                padding: 2px 6px;
+            }
+            
+            .info-content {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -342,23 +430,40 @@
                 <!-- ВАЖНО: ЭТО МЕСТО ГДЕ ВЫ МЕНЯЕТЕ СТАТИСТИКУ -->
                 <!-- ⬇⬇⬇ РЕДАКТИРУЙТЕ СПИСОК НИЖЕ ⬇⬇⬇ -->
                 <ul class="stats-list">
-                    <li><span class="user-name">@plushpeppa</span> <span class="message-count">20 сообщений</span></li>
-                    <li><span class="user-name">@gamerpro</span> <span class="message-count">15 сообщений</span></li>
-                    <li><span class="user-name">@streamer_x</span> <span class="message-count">12 сообщений</span></li>
-                    <li><span class="user-name">@np_fan</span> <span class="message-count">8 сообщений</span></li>
-                    <li><span class="user-name">@chat_master</span> <span class="message-count">5 сообщений</span></li>
-                    <li><span class="user-name">@new_user</span> <span class="message-count">3 сообщений</span></li>
-                    <li><span class="user-name">@vip_member</span> <span class="message-count">25 сообщений</span></li>
-                    <li><span class="user-name">@moderator</span> <span class="message-count">18 сообщений</span></li>
-                    <li><span class="user-name">@helper</span> <span class="message-count">10 сообщений</span></li>
-                    <li><span class="user-name">@active_user</span> <span class="message-count">7 сообщений</span></li>
+                    <li><span class="user-name">@plushpeppa</span> <span class="message-count">prog_клайп</span></li>
+                    <li><span class="user-name">@kosmonavtiklar</span> <span class="message-count">owner</span></li>
+                    <li><span class="user-name">@finteresilya</span> <span class="message-count">adm_бишка</span></li>
+                    <li><span class="user-name">@Cherrylikefatigue</span> <span class="message-count">бушик</span></li>
+                    <li><span class="user-name">@mafwui</span> <span class="message-count">шуша</span></li>
+                    <li><span class="user-name">@ik121314</span> <span class="message-count">фенечка</span></li>
+                    <li><span class="user-name">@Ya_sura_2407</span> <span class="message-count">барсик</span></li>
+                    <li><span class="user-name">@maveexz</span> <span class="message-count">гречка</span></li>
+                    <li><span class="user-name">@Solnuckho</span> <span class="message-count">дипинс</span></li>
+                    <li><span class="user-name">@haamonchik</span> <span class="message-count">дедуля</span></li>
+                    <li><span class="user-name">@chunk_tg</span> <span class="message-count">сосиска</span></li>
+                    <li><span class="user-name">@Ashley_vw</span> <span class="message-count">даня</span></li>
+                    <li><span class="user-name">@GERMAN_BLBL</span> <span class="message-count">lolo._adm</span></li>
+                    <li><span class="user-name">@DashaAvilov/span> <span class="message-count">даша</span></li>
+                    <li><span class="user-name">@katenyshvv</span> <span class="message-count">акуляля</span></li>
+                    <li><span class="user-name">@endekkkkk</span> <span class="message-count">adm_чпуньк</span></li>
+                    <li><span class="user-name">@fps338</span> <span class="message-count">херейд</span></li>
+                    <li><span class="user-name">@KYKYCHAA</span> <span class="message-count">ашан</span></li>
+                    <li><span class="user-name">@*****</span> <span class="message-count">Эд</span></li>
+                    <li><span class="user-name">@Htywmc</span> <span class="message-count">сосина</span></li>
+                    <li><span class="user-name">@*****</span> <span class="message-count">домер</span></li>
+                    <li><span class="user-name">@KSJSKNSI</span> <span class="message-count">картофанка</span></li>
+                    <li><span class="user-name">@SherlockH01</span> <span class="message-count">петрушка</span></li>
+                    <li><span class="user-name">@BEBEBENS_X333</span> <span class="message-count">федя_енот</span></li>
+                    <li><span class="user-name">@*****</span> <span class="message-count">катерина</span></li>
+                    <li><span class="user-name">@vexsaro</span> <span class="message-count">костя</span></li>
+                    <li><span class="user-name">@Leila7_tut</span> <span class="message-count">софигрей</span></li>
                 </ul>
                 <!-- ⬆⬆⬆ РЕДАКТИРУЙТЕ СПИСОК ВЫШЕ ⬆⬆⬆ -->
             </div>
         </div>
         
         <div class="scroll-indicator">
-            <i class="fas fa-arrows-up-down"></i> Листайте пальцем или колесиком мыши
+            <i class="fas fa-hand-pointer"></i> Листайте вверх/вниз
         </div>
         
         <button class="btn back-btn" onclick="showPage('mainPage')">
@@ -411,7 +516,7 @@
                 oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
                 oscillator.type = 'sine';
                 
-                gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.06, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
                 
                 oscillator.start();
@@ -435,11 +540,18 @@
             initScroll();
             
             // Активируем аудио контекст при первом взаимодействии пользователя
-            document.body.addEventListener('click', function activateAudio() {
+            document.addEventListener('touchstart', function activateAudio() {
                 if (audioContext && audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
-                document.body.removeEventListener('click', activateAudio);
+                document.removeEventListener('touchstart', activateAudio);
+            });
+            
+            document.addEventListener('click', function activateAudioClick() {
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                document.removeEventListener('click', activateAudioClick);
             });
         });
 
@@ -457,7 +569,7 @@
             
             // Если открываем страницу статистики, инициализируем скролл
             if (pageId === 'statsPage') {
-                setTimeout(initScroll, 100);
+                setTimeout(initScroll, 50);
             }
         }
         
@@ -481,7 +593,7 @@
             // События для мыши
             container.addEventListener('wheel', function(e) {
                 e.preventDefault();
-                scrollOffset -= e.deltaY * 0.5;
+                scrollOffset -= e.deltaY * 0.3;
                 scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
                 wrapper.style.transform = `translateY(-${scrollOffset}px)`;
             });
@@ -491,8 +603,7 @@
                 isDragging = true;
                 startY = e.touches[0].clientY;
                 currentY = startY;
-                container.style.cursor = 'grabbing';
-            });
+            }, { passive: true });
             
             container.addEventListener('touchmove', function(e) {
                 if (!isDragging) return;
@@ -501,58 +612,40 @@
                 currentY = e.touches[0].clientY;
                 const deltaY = currentY - startY;
                 
-                scrollOffset -= deltaY * 1.5;
-                scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
-                
-                wrapper.style.transform = `translateY(-${scrollOffset}px)`;
-                startY = currentY;
-            });
-            
-            container.addEventListener('touchend', function() {
-                isDragging = false;
-                container.style.cursor = 'default';
-                
-                // Добавляем инерцию
-                const velocity = (currentY - startY) * 0.5;
-                if (Math.abs(velocity) > 5) {
-                    inertialScroll(velocity);
-                }
-            });
-            
-            // События для десктопа (мышь)
-            container.addEventListener('mousedown', function(e) {
-                isDragging = true;
-                startY = e.clientY;
-                currentY = startY;
-                container.style.cursor = 'grabbing';
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging) return;
-                e.preventDefault();
-                
-                currentY = e.clientY;
-                const deltaY = currentY - startY;
-                
                 scrollOffset -= deltaY;
                 scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
                 
                 wrapper.style.transform = `translateY(-${scrollOffset}px)`;
                 startY = currentY;
+            }, { passive: false });
+            
+            container.addEventListener('touchend', function() {
+                isDragging = false;
             });
             
-            document.addEventListener('mouseup', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    container.style.cursor = 'default';
+            // Простой инерционный скролл
+            function inertialScroll() {
+                const velocity = (currentY - startY) * 0.3;
+                if (Math.abs(velocity) > 2) {
+                    let currentVelocity = velocity;
+                    let friction = 0.92;
                     
-                    // Добавляем инерцию
-                    const velocity = (currentY - startY) * 0.3;
-                    if (Math.abs(velocity) > 2) {
-                        inertialScroll(velocity);
+                    function animate() {
+                        if (Math.abs(currentVelocity) > 0.5) {
+                            scrollOffset -= currentVelocity;
+                            scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
+                            
+                            wrapper.style.transform = `translateY(-${scrollOffset}px)`;
+                            currentVelocity *= friction;
+                            requestAnimationFrame(animate);
+                        }
                     }
+                    
+                    animate();
                 }
-            });
+            }
+            
+            container.addEventListener('touchend', inertialScroll);
             
             // Отключаем выделение текста при перетаскивании
             container.addEventListener('selectstart', function(e) {
@@ -562,29 +655,6 @@
             });
         }
         
-        // Функция инерционного скролла
-        function inertialScroll(velocity) {
-            let friction = 0.95;
-            let currentVelocity = velocity;
-            
-            function animate() {
-                if (Math.abs(currentVelocity) > 0.5) {
-                    scrollOffset -= currentVelocity;
-                    scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll));
-                    
-                    const wrapper = document.getElementById('statsListWrapper');
-                    if (wrapper) {
-                        wrapper.style.transform = `translateY(-${scrollOffset}px)`;
-                    }
-                    
-                    currentVelocity *= friction;
-                    requestAnimationFrame(animate);
-                }
-            }
-            
-            animate();
-        }
-        
         // Эффекты при нажатии кнопок
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function() {
@@ -592,7 +662,7 @@
             });
             
             button.addEventListener('mousedown', function() {
-                this.style.transform = 'scale(0.95)';
+                this.style.transform = 'scale(0.96)';
             });
             
             button.addEventListener('mouseup', function() {
@@ -604,13 +674,23 @@
             });
             
             // Для тач-устройств
-            button.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(0.95)';
+            button.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.96)';
+                playClickSound();
             });
             
-            button.addEventListener('touchend', function() {
+            button.addEventListener('touchend', function(e) {
+                e.preventDefault();
                 this.style.transform = 'scale(1)';
             });
+        });
+        
+        // Предотвращаем контекстное меню на мобильных
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.closest('.stats-container')) {
+                e.preventDefault();
+            }
         });
     </script>
 </body>
